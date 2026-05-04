@@ -41,5 +41,12 @@ public class TestController {
     public String deleteClaim(@PathVariable Long id) {
         service.deleteClaim(id);
         return "Claim deleted successfully";
+
+    }
+
+    // 🔥 ADD THIS HERE (new API)
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello Simran!";
     }
 }
