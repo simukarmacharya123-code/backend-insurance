@@ -47,6 +47,6 @@ public class TestController {
     // 🔥 ADD THIS HERE (new API)
     @GetMapping("/hello")
     public String hello() {
-        return "Hello Simran!";
+        return "Hello Simran from cloned project!";
     }
 }
