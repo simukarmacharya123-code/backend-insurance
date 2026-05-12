@@ -1,11 +1,16 @@
 package com.simran.insurancebackend;
 
+import com.simran.insurancebackend.dto.ClaimRequest;
+import com.simran.insurancebackend.dto.ClaimResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
 import java.util.List;
-
+// ✅ ADD THESE HERE
+import com.simran.insurancebackend.dto.ClaimRequest;
+import com.simran.insurancebackend.dto.ClaimResponse;
+@RequestMapping("/")
 @RestController
 public class TestController {
 
@@ -26,8 +31,8 @@ public class TestController {
 
     // POST new claim
     @PostMapping("/claims")
-    public Claim createClaim(@Valid @RequestBody Claim claim) {
-        return service.createClaim(claim);
+    public ClaimResponse createClaim(@Valid @RequestBody ClaimRequest request) {
+        return service.createClaim(request);
     }
 
     // PUT update claim
