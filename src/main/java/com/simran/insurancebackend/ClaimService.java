@@ -2,6 +2,8 @@ package com.simran.insurancebackend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.simran.insurancebackend.dto.ClaimRequest;
+import com.simran.insurancebackend.dto.ClaimResponse;
 
 import java.util.List;
 
@@ -20,8 +22,29 @@ public class ClaimService {
                 .orElseThrow(() -> new ResourceNotFoundException("Claim not found with id: " + id));
     }
 
-    public Claim createClaim(Claim claim) {
-        return repo.save(claim);
+    public ClaimResponse createClaim(ClaimRequest request) {
+
+        // Convert DTO → Entity
+        Claim claim = new Claim();
+        claim.setClaimType(request.getClaimType());
+        claim.setUserName(request.getUserName());
+        claim.setStatus(request.getStatus());
+        claim.setDescription(request.getDescription());
+        claim.setAmount(request.getAmount());
+
+        // Save to DB
+        Claim saved = repo.save(claim);
+
+        // Convert Entity → Response DTO
+        ClaimResponse response = new ClaimResponse();
+        response.setId(saved.getId());
+        response.setClaimType(saved.getClaimType());
+        response.setUserName(saved.getUserName());
+        response.setStatus(saved.getStatus());
+        response.setDescription(saved.getDescription());
+        response.setAmount(saved.getAmount());
+
+        return response;
     }
 
     public Claim updateClaim(Long id, Claim updatedClaim) {
@@ -35,7 +58,11 @@ public class ClaimService {
         return repo.save(claim);
     }
 
+
     public void deleteClaim(Long id) {
         repo.deleteById(id);
+    }
+    public int calculateTotal(int a, int b) {
+        return a + b;
     }
 }
